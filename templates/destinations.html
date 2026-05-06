@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinations - AxelTravel</title>
+  <link rel="stylesheet" href="{% static 'style.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <h1 class="logo">AxelTravel</h1>
+        <ul class="nav-links">
+                    <li><a href="home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="destinations" class="active"><i class="fas fa-map-marked-alt"></i> Destinations</a></li>
+                    <li><a href="gallery"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    {% endif %}
+                    
+                </ul>
+        <div class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+{% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<main class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% static "Image/img2.jpeg" %}') center/cover no-repeat;">
+
+    <h2><i class="fas fa-map-marked-alt"></i>Popular Destinations</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="{%static '/Image/paris.jpeg'%}" alt="Paris">
+        <h3>Paris</h3>
+        <p>The city of lights and love, famous for its art, fashion, and cuisine.</p>
+      </div>
+      <div class="card">
+        <img src="{% static '/Image/maldives.webp'%}" alt="Maldives">
+        <h3>Maldives</h3>
+        <p>Crystal clear waters and luxurious resorts make it a perfect escape.</p>
+      </div>
+      <div class="card">
+        <img src="{% static '/Image/japan.jpg'%}" alt="Japan">
+        <h3>Japan</h3>
+        <p>Where tradition meets technology, offering a unique travel experience.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>AxelTravel</h2>
+      <p>Your adventure starts here.</p>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'destinations' %}">Destinations</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p><i class="fas fa-envelope"></i> support@axeltravel.com</p>
+      <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    </div>
+
+    <div class="footer-social">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 AxelTravel. All rights reserved.</p>
+  </div>
+</footer>
+
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

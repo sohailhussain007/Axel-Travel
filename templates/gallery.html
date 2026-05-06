@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - AxelTravel</title>
+  <link rel="stylesheet" href="{% static 'style.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <h1 class="logo">AxelTravel</h1>
+        <ul class="nav-links">
+                    <li><a href="home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="destinations"><i class="fas fa-map-marked-alt"></i> Destinations</a></li>
+                    <li><a href="gallery"class="active"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    {% endif %}
+                     
+                </ul>
+        <div class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<section class="gallery-hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% static "Image/img2.jpeg" %}') center/cover no-repeat;"></section>>
+    <div class="container">
+      <h2><i class="fas fa-images"></i> Travel Gallery</h2>
+      <p>Explore breathtaking moments from around the world captured by our travelers</p>
+    </div>
+  </section>
+
+  <section class="gallery-section"> 
+    <div class="container">
+      <div class="gallery-filters">
+        <button class="filter-btn active" onclick="filterGallery('all')">All Photos</button>
+        <button class="filter-btn" onclick="filterGallery('beach')">Beaches</button>
+        <button class="filter-btn" onclick="filterGallery('mountain')">Mountains</button>
+        <button class="filter-btn" onclick="filterGallery('city')">Cities</button>
+      </div>
+      
+      <div class="gallery" id="galleryContainer">
+        <!-- Beach Photos -->
+        <div class="gallery-item" data-category="beach">
+          <img src="{% static 'Image/maldives.webp' %}" alt="Tropical Beach">
+          <div class="gallery-info">
+            <h3>Tropical Paradise</h3>
+            <p>Maldives - Crystal clear turquoise waters and white sandy beaches</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="beach">
+          <img src="{% static 'Image/bali.avif' %}" alt="Island Beach">
+          <div class="gallery-info">
+            <h3>Island Escape</h3>
+            <p>Bali - Perfect getaway with stunning sunsets</p>
+          </div>
+        </div>
+
+        <!-- Mountain Photos -->
+        <div class="gallery-item" data-category="mountain">
+          <img src="{% static 'Image/swiss.jpg' %}" alt="Mountain View">
+          <div class="gallery-info">
+            <h3>Mountain Majesty</h3>
+            <p>Swiss Alps - Breathtaking views and fresh mountain air</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="mountain">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Snow Mountains">
+          <div class="gallery-info">
+            <h3>Snow Peaks</h3>
+            <p>Canadian Rockies - Majestic snow-capped mountains</p>
+          </div>
+        </div>
+
+        <!-- City Photos -->
+        <div class="gallery-item" data-category="city">
+            <img src="{% static 'Image/paris.jpeg' %}"  alt="Paris City">
+          <div class="gallery-info">
+            <h3>City of Lights</h3>
+            <p>Paris - Romantic streets and iconic architecture</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="city">
+          <img src="https://images.unsplash.com/photo-1531218150217-54595bc2b934?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="New York">
+          <div class="gallery-info">
+            <h3>Urban Adventure</h3>
+            <p>New York - The city that never sleeps</p>
+          </div>
+        </div>
+
+        <!-- Mixed Categories -->
+        <div class="gallery-item" data-category="city">
+            <img src="{% static 'Image/japan.jpg' %}"  alt="Japan">
+          <div class="gallery-info">
+            <h3>Ancient Traditions</h3>
+            <p>Japan - Cultural heritage and peaceful temples</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="beach">
+          <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Greek Beach">
+          <div class="gallery-info">
+            <h3>Mediterranean Beauty</h3>
+            <p>Greece - Azure waters and ancient history</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>AxelTravel</h2>
+      <p>Your adventure starts here.</p>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'destinations' %}">Destinations</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p><i class="fas fa-envelope"></i> support@axeltravel.com</p>
+      <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    </div>
+
+    <div class="footer-social">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 AxelTravel. All rights reserved.</p>
+  </div>
+</footer>
+
+  
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
